@@ -9,3 +9,34 @@
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+# golang support
+export GOPATH=~/playpen/go
+export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
+
+# perl5 build
+PERL_MB_OPT="--install_base \"/Users/pti/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/pti/perl5"; export PERL_MM_OPT;
+
+
+# github-backup OAUTH for access to repos
+export GHBU_OAUTH="250830e1d3b139060bfdd9b4d2c5b49776683faf"
+
+# octave
+export GNUTERM="qt"
+export DYLD_LIBRARY_PATH=/Users/pti/Tools/oracle
+
+# boot2docker support
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/pti/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
+# java support
+# for Java <8 : max perm size tends to fill up, increase it
+# export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128M"
+# for Java8 and later this is no longer needed
+export MAVEN_OPTS="-Xmx512m"
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

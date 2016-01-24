@@ -11,3 +11,61 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+alias rgrep=grep -r
+
+#
+# initialize docker.
+#
+# - start engine if not running yet
+# - add settings to environment
+#
+function docker-init {
+  echo "check if docker machine dev already running..."
+  if [ "`docker-machine status dev`" = "Running" ]
+  then
+    echo "Good, docker-machine dev already running"
+  else
+    docker-machine start dev
+  fi
+
+  echo "configuring environment..."
+  eval `docker-machine env dev`
+
+  echo "Ok, ready to rumble..."
+}
+
+#
+# add node modules bin directory to path
+#
+function node-init {
+  if (echo $PATH | grep './node_modules/.bin')
+  then
+    echo "Path already has ./node_modules/.bin added"
+  else
+    export PATH=./node_modules/.bin:$PATH
+    echo "The folder ./node_modules/.bin was added in front of the path."
+  fi
+}
+
+# add local path
+
+export PATH=$PATH:/Users/pti/bin:/Users/pti/.cargo/bin
+
+# to enable racer RUST code expansion
+export RUST_SRC_PATH=/Users/pti/playpen/rust/rust/src
+
+# added by Anaconda3 2.4.0 installer
+export PATH="$PATH:/Users/pti/anaconda3/bin"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+function sdk-init {
+  if (echo $PATH | grep './node_modules/.bin')
+  then
+                echo "Path already has ./node_modules/.bin added"
+                  else
+                          export PATH=./node_modules/.bin:$PATH
+                              echo "The folder ./node_modules/.bin was added in front of the path."
+                                fi
+                            }
+                            export SDKMAN_DIR="/Users/pti/.sdkman"
+[[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
