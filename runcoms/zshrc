@@ -69,3 +69,4 @@ function sdk-init {
 }
 
 export EDITOR='emacsclient -c -a ""'
+export VISUAL=$EDITOR
