@@ -36,7 +36,11 @@ export DOCKER_TLS_VERIFY=1
 # export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128M"
 # for Java8 and later this is no longer needed
 export MAVEN_OPTS="-Xmx512m"
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+if [ -x /usr/libexec/java_home ]
+then
+    export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
