@@ -49,7 +49,7 @@ function node-init {
 
 # add local path
 
-export PATH=$PATH:/Users/pti/bin:/Users/pti/.cargo/bin
+export PATH=$PATH:~/bin:~/.cargo/bin:~/.npm-global/bin
 
 # to enable racer RUST code expansion
 export RUST_SRC_PATH=/Users/pti/playpen/rust/rust/src
