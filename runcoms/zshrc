@@ -68,5 +68,17 @@ function sdk-init {
   fi
 }
 
+# set and show java version in shell
+function jhome {
+  export JAVA_HOME=`/usr/libexec/java_home $@`
+  echo "JAVA_HOME:" $JAVA_HOME
+  echo "java -version:"
+  java -version
+}
+
+
 export EDITOR=~/bin/ec
 export VISUAL=$EDITOR
+
+# Report CPU usage for commands running longer than 10 seconds
+REPORTTIME=10

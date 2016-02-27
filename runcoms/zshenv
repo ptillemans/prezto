@@ -26,11 +26,6 @@ export GHBU_OAUTH="250830e1d3b139060bfdd9b4d2c5b49776683faf"
 export GNUTERM="qt"
 export DYLD_LIBRARY_PATH=/Users/pti/Tools/oracle
 
-# boot2docker support
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=/Users/pti/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
-
 # java support
 # for Java <8 : max perm size tends to fill up, increase it
 # export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128M"
