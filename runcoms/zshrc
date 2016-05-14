@@ -61,11 +61,28 @@ export PATH="$PATH:/Users/pti/anaconda3/bin"
 function sdk-init {
   if (echo $PATH | grep './node_modules/.bin')
   then
-                echo "Path already has ./node_modules/.bin added"
-                  else
-                          export PATH=./node_modules/.bin:$PATH
-                              echo "The folder ./node_modules/.bin was added in front of the path."
-                                fi
-                            }
-                            export SDKMAN_DIR="/Users/pti/.sdkman"
-[[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
+    echo "Path already has ./node_modules/.bin added"
+  else
+    export SDKMAN_DIR="/Users/pti/.sdkman"
+    [[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
+  fi
+}
+
+# set and show java version in shell
+function jhome {
+  export JAVA_HOME=`/usr/libexec/java_home $@`
+  echo "JAVA_HOME:" $JAVA_HOME
+  echo "java -version:"
+  java -version
+}
+
+
+# show/hide hidden files in OSX file browsers
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+export EDITOR=~/bin/ec
+export VISUAL=$EDITOR
+
+# Report CPU usage for commands running longer than 10 seconds
+REPORTTIME=10
