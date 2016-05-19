@@ -49,7 +49,7 @@ function node-init {
 
 # add local path
 
-export PATH=$PATH:~/bin:~/.cargo/bin:~/.npm-global/bin
+export PATH=$PATH:/Users/pti/bin:/Users/pti/.cargo/bin
 
 # to enable racer RUST code expansion
 export RUST_SRC_PATH=/Users/pti/playpen/rust/rust/src
@@ -59,26 +59,13 @@ export PATH="$PATH:/Users/pti/anaconda3/bin"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 function sdk-init {
-  if (echo $PATH | grep '.sdkman/bin')
+  if (echo $PATH | grep './node_modules/.bin')
   then
-    echo "Path already has ./node_modules/.bin added"
-  else
-    export SDKMAN_DIR="/Users/pti/.sdkman"
-    [[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
-  fi
-}
-
-# set and show java version in shell
-function jhome {
-  export JAVA_HOME=`/usr/libexec/java_home $@`
-  echo "JAVA_HOME:" $JAVA_HOME
-  echo "java -version:"
-  java -version
-}
-
-
-export EDITOR=~/bin/ec
-export VISUAL=$EDITOR
-
-# Report CPU usage for commands running longer than 10 seconds
-REPORTTIME=10
+                echo "Path already has ./node_modules/.bin added"
+                  else
+                          export PATH=./node_modules/.bin:$PATH
+                              echo "The folder ./node_modules/.bin was added in front of the path."
+                                fi
+                            }
+                            export SDKMAN_DIR="/Users/pti/.sdkman"
+[[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
