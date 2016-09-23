@@ -39,3 +39,4 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export KAGGLE_BOSCH_DATA_ROOT=~/Dropbox/kaggle
