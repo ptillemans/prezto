@@ -10,6 +10,10 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
+# add local path
+PATH=$PATH:~/bin
+
+
 # golang support
 export GOPATH=~/playpen/go
 export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
@@ -40,3 +44,14 @@ fi
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export KAGGLE_BOSCH_DATA_ROOT=~/Dropbox/kaggle
+
+### Rust support
+
+# add cargo bin directory to path
+export PATH=$PATH:~/.cargo/bin
+
+# to enable racer RUST code expansion
+export RUST_SRC_PATH=~/playpen/rust/rust/src
+
+# added by Anaconda3 installer
+export PATH="$PATH:/Users/pti/anaconda3/bin"
