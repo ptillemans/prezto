@@ -55,3 +55,6 @@ export VISUAL=$EDITOR
 
 # Report CPU usage for commands running longer than 10 seconds
 REPORTTIME=10
+
+# map gpg2 on regular gpg
+alias gpg=gpg2

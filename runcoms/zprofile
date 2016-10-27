@@ -72,3 +72,10 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+#
+# GPG agent
+#
+# start gpg-agent and generate file with socket connection info
+#
+export SSH_AUTH_SOCK=$HOME/.gnupg/
