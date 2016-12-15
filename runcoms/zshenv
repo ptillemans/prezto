@@ -41,6 +41,15 @@ then
     export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 fi
 
+### GPG-agent
+GPG_TTY=$(tty)
+export GPG_TTY
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+    . "${HOME}/.gpg-agent-info"
+    export GPG_AGENT_INFO
+    export SSH_AUTH_SOCK
+fi
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export KAGGLE_BOSCH_DATA_ROOT=~/Dropbox/kaggle
