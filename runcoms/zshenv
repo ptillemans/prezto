@@ -27,6 +27,7 @@ PERL_MM_OPT="INSTALL_BASE=/Users/pti/perl5"; export PERL_MM_OPT;
 export GNUTERM="qt"
 export DYLD_LIBRARY_PATH=/Users/pti/Tools/oracle
 export ORACLE_HOME=$DYLD_LIBRARY_PATH
+export OCI_HOME=$DYLD_LIBRARY_PATH
 export OCI_LIB_DIR=$DYLD_LIBRARY_PATH
 export OCI_INC_DIR=$DYLD_LIBRARY_PATH/sdk/include
 
@@ -55,16 +56,14 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export KAGGLE_BOSCH_DATA_ROOT=~/Dropbox/kaggle
 
 ### Rust support
-
-# add cargo bin directory to path
-export PATH=$PATH:~/.cargo/bin
-
-# to enable racer RUST code expansion
-export RUST_SRC_PATH=~/playpen/rust/rust/src
+if [ -f "${HOME}/.cargo/env ]; then
+    . ${HOME}/.cargo/env
+fi
 
 # added by Anaconda3 installer
 export PATH="$PATH:/Users/pti/anaconda3/bin"
 
+# private environment variables not checked in
 if [ -f ~/.private.zsh ]
 then
     source ~/.private.zsh
