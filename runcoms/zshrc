@@ -12,6 +12,7 @@ fi
 
 # Customize to your needs...
 alias rgrep=grep -r
+alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 
 #
 # add node modules bin directory to path
