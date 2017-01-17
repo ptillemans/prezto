@@ -12,27 +12,7 @@ fi
 
 # Customize to your needs...
 alias rgrep=grep -r
-
-#
-# initialize docker.
-#
-# - start engine if not running yet
-# - add settings to environment
-#
-function docker-init {
-  echo "check if docker machine dev already running..."
-  if [ "`docker-machine status dev`" = "Running" ]
-  then
-    echo "Good, docker-machine dev already running"
-  else
-    docker-machine start dev
-  fi
-
-  echo "configuring environment..."
-  eval `docker-machine env dev`
-
-  echo "Ok, ready to rumble..."
-}
+alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 
 #
 # add node modules bin directory to path
@@ -47,18 +27,8 @@ function node-init {
   fi
 }
 
-# add local path
-
-export PATH=$PATH:/Users/pti/bin:/Users/pti/.cargo/bin
-
-# to enable racer RUST code expansion
-export RUST_SRC_PATH=/Users/pti/playpen/rust/rust/src
-
-# added by Anaconda3 2.4.0 installer
-export PATH="$PATH:/Users/pti/anaconda3/bin"
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-function sdk-init {
+function sdkman-init {
   if (echo $PATH | grep './node_modules/.bin')
   then
     echo "Path already has ./node_modules/.bin added"
@@ -88,3 +58,6 @@ export VISUAL=$EDITOR
 REPORTTIME=10
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# map gpg2 on regular gpg
+alias gpg=gpg2
