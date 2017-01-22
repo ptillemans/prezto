@@ -59,3 +59,8 @@ REPORTTIME=10
 
 # map gpg2 on regular gpg
 alias gpg=gpg2
+
+# Load rbenv automatically by appending
+# the following to ~/.zshrc:
+
+eval "$(rbenv init -)"
