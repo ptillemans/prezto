@@ -57,6 +57,8 @@ export VISUAL=$EDITOR
 # Report CPU usage for commands running longer than 10 seconds
 REPORTTIME=10
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 # map gpg2 on regular gpg
 alias gpg=gpg2
 
