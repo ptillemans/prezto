@@ -60,7 +60,7 @@ export KAGGLE_BOSCH_DATA_ROOT=~/Dropbox/kaggle
 export PATH=$PATH:~/.cargo/bin
 
 # to enable racer RUST code expansion
-export RUST_SRC_PATH=~/playpen/rust/rust/src
+export RUST_SRC_PATH=~/.multirust/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
 # added by Anaconda3 installer
 export PATH="$PATH:/Users/pti/anaconda3/bin"
@@ -69,3 +69,6 @@ if [ -f ~/.private.zsh ]
 then
     source ~/.private.zsh
 fi
+
+### Haskell support
+export PATH=$PATH:~/Library/Haskell/bin
