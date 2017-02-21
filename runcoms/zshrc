@@ -62,6 +62,15 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # map gpg2 on regular gpg
 alias gpg=gpg2
 
+#
+# GPG agent
+#
+# start gpg-agent and generate file with socket connection info
+#
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+
+
 # Load rbenv automatically by appending
 # the following to ~/.zshrc:
 
