@@ -62,7 +62,7 @@ if [ -f "${HOME}/.cargo/env" ]; then
 fi
 
 # added by Anaconda3 installer
-export PATH="$PATH:/Users/pti/anaconda3/bin"
+export PATH="/Users/pti/anaconda3/bin:$PATH"
 
 # private environment variables not checked in
 if [ -f "~/.private.zsh" ]
