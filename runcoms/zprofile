@@ -73,11 +73,4 @@ fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
 
-#
-# GPG agent
-#
-# start gpg-agent and generate file with socket connection info
-#
-export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
-
 export PATH="$HOME/.cargo/bin:$PATH"
