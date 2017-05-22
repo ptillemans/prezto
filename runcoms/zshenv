@@ -13,6 +13,37 @@ fi
 # add local path
 PATH=$PATH:~/bin
 
+#
+# add node modules bin directory to path
+#
+function node-init {
+  if (echo $PATH | grep './node_modules/.bin')
+  then
+    echo "Path already has ./node_modules/.bin added"
+  else
+    export PATH=./node_modules/.bin:$PATH
+    echo "The folder ./node_modules/.bin was added in front of the path."
+  fi
+}
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+function sdkman-init {
+  if (echo $PATH | grep './node_modules/.bin')
+  then
+    echo "Path already has ./node_modules/.bin added"
+  else
+    export SDKMAN_DIR="/Users/pti/.sdkman"
+    [[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
+  fi
+}
+
+# set and show java version in shell
+function jhome {
+  export JAVA_HOME=`/usr/libexec/java_home $@`
+  echo "JAVA_HOME:" $JAVA_HOME
+  echo "java -version:"
+  java -version
+}
 
 # golang support
 export GOPATH=~/playpen/go
@@ -64,3 +95,10 @@ fi
 
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
+
+# Load rbenv automatically by appending
+# the following to ~/.zshrc:
+
+eval "$(rbenv init -)"
+
+export PATH="$HOME/.yarn/bin:$PATH"
