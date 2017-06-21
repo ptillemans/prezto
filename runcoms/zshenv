@@ -11,7 +11,7 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
 fi
 
 # add local path
-PATH=$PATH:~/bin
+PATH=/usr/local/bin:$PATH:~/bin
 
 
 # golang support
