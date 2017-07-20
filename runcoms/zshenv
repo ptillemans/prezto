@@ -11,7 +11,7 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
 fi
 
 # add local path
-PATH=$PATH:~/bin
+PATH=/usr/local/bin:$PATH:~/bin
 
 
 # golang support
@@ -54,7 +54,7 @@ if [ -f "${HOME}/.cargo/env" ]; then
 fi
 
 # added by Anaconda3 installer
-export PATH="/Users/pti/anaconda3/bin:$PATH"
+export PATH="/usr/local/anaconda3/bin:$PATH"
 
 # private environment variables not checked in
 if [ -f ~/.private.zsh ]
@@ -65,9 +65,6 @@ fi
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
 
-
-### Nix package management support
-if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]
-then
-    source ~/.nix-profile/etc/profile.d/nix.sh
-fi
+# Npm support
+export PATH=$PATH:~/.npm-packages/bin
+ 
