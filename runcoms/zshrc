@@ -77,3 +77,8 @@ export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 eval "$(rbenv init -)"
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# Haskell/Stack aliases
+alias runhaskell='stack runhaskell'
+alias ghc='stack exec ghc --'
+alias ghci='stack exec ghci --'

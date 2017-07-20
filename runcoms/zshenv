@@ -57,10 +57,17 @@ fi
 export PATH="/Users/pti/anaconda3/bin:$PATH"
 
 # private environment variables not checked in
-if [ -f "~/.private.zsh" ]
+if [ -f ~/.private.zsh ]
 then
     source ~/.private.zsh
 fi
 
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
+
+
+### Nix package management support
+if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]
+then
+    source ~/.nix-profile/etc/profile.d/nix.sh
+fi
