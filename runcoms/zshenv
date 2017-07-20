@@ -11,7 +11,7 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
 fi
 
 # add local path
-PATH=$PATH:~/bin
+PATH=/usr/local/bin:$PATH:~/bin
 
 #
 # add node modules bin directory to path
@@ -85,7 +85,7 @@ if [ -f "${HOME}/.cargo/env" ]; then
 fi
 
 # added by Anaconda3 installer
-export PATH="/Users/pti/anaconda3/bin:$PATH"
+export PATH="/usr/local/anaconda3/bin:$PATH"
 
 # private environment variables not checked in
 if [ -f "~/.private.zsh" ]
@@ -96,9 +96,6 @@ fi
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
 
-# Load rbenv automatically by appending
-# the following to ~/.zshrc:
-
-eval "$(rbenv init -)"
-
-export PATH="$HOME/.yarn/bin:$PATH"
+# Npm support
+export PATH=$PATH:~/.npm-packages/bin
+ 
