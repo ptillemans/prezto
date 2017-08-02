@@ -96,6 +96,6 @@ fi
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
 
-# Npm support
+# Npm and Yarn support
 export PATH=$PATH:~/.npm-packages/bin
- 
+export PATH="$HOME/.yarn/bin:$PATH"
