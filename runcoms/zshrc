@@ -38,11 +38,6 @@ export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 
 
-# Load rbenv automatically by appending
-# the following to ~/.zshrc:
-
-eval "$(rbenv init -)"
-
 # Haskell/Stack aliases
 alias runhaskell='stack runhaskell'
 alias ghc='stack exec ghc --'
