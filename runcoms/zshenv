@@ -93,6 +93,9 @@ then
     source ~/.private.zsh
 fi
 
+### gtags support
+export GTAGSLABEL=pygments
+
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
 
