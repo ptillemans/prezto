@@ -106,4 +106,7 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # Load rbenv automatically by appending
 # the following to ~/.zshrc:
 
-eval "$(rbenv init -)"
+if (which -s rbenv >/dev/null)
+then
+  eval "$(rbenv init -)"
+fi
