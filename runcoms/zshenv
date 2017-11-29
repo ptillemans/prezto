@@ -93,6 +93,11 @@ then
     source ~/.private.zsh
 fi
 
+
+### Tensorflow support
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+
 ### gtags support
 export GTAGSLABEL=pygments
 
@@ -110,3 +115,5 @@ if (which -s rbenv >/dev/null)
 then
   eval "$(rbenv init -)"
 fi
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
