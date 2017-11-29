@@ -93,6 +93,12 @@ then
     source ~/.private.zsh
 fi
 
+export PROJECT_HOME="$HOME/Projects"
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3.6
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=''
+
+
 ### gtags support
 export GTAGSLABEL=pygments
 
@@ -102,11 +108,3 @@ export PATH=$PATH:~/Library/Haskell/bin
 # Npm and Yarn support
 export PATH=$PATH:~/.npm-packages/bin
 export PATH="$HOME/.yarn/bin:$PATH"
-
-# Load rbenv automatically by appending
-# the following to ~/.zshrc:
-
-if (which -s rbenv >/dev/null)
-then
-  eval "$(rbenv init -)"
-fi
