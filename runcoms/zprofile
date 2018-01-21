@@ -66,9 +66,12 @@ fi
 PATH=/home/pti/.local/share/umake/bin:$PATH
 
 # google cloud support
-source /home/pti/tools/google-cloud-sdk/completion.zsh.inc
-source /home/pti/tools/google-cloud-sdk/path.zsh.inc
+source ~/tools/google-cloud-sdk/completion.zsh.inc
+source ~/tools/google-cloud-sdk/path.zsh.inc
 
 # support for jenv to switch between java versions
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+
+# add local path 
+export PATH="$HOME/.local/bin":$PATH
