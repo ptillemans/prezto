@@ -32,8 +32,8 @@ function sdkman-init {
   then
     echo "Path already has ./node_modules/.bin added"
   else
-    export SDKMAN_DIR="/Users/pti/.sdkman"
-    [[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
+    export SDKMAN_DIR="$HOME/.sdkman"
+    [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
   fi
 }
 
@@ -50,15 +50,15 @@ export GOPATH=~/playpen/go
 export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
 
 # perl5 build
-export PERL_MB_OPT="--install_base \"/Users/pti/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=/Users/pti/perl5"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
 # groovy support
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 # octave
 export GNUTERM="qt"
-export DYLD_LIBRARY_PATH=/Users/pti/Tools/oracle
+export DYLD_LIBRARY_PATH=$HOME/Tools/oracle
 export ORACLE_HOME=$DYLD_LIBRARY_PATH
 export OCI_HOME=$DYLD_LIBRARY_PATH
 export OCI_LIB_DIR=$DYLD_LIBRARY_PATH
@@ -100,8 +100,8 @@ export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 
 ### python support for the python layer in prezto
 export PROJECT_HOME="$HOME/Projects"
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3.6
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_PYTHON=`which python3.6`
+export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=''
 
 ### gtags support
