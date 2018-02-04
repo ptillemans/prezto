@@ -72,7 +72,10 @@ fi
 # google cloud support
 if [ -d ~pti/tools/google-cloud-sdk ]
 then
-   source /home/pti/tools/google-cloud-sdk/completion.zsh.inc
-   source /home/pti/tools/google-cloud-sdk/path.zsh.inc
+   source ~/tools/google-cloud-sdk/completion.zsh.inc
+   source ~/tools/google-cloud-sdk/path.zsh.inc
 fi
 
+
+# add local path 
+export PATH="$HOME/.local/bin":$PATH
