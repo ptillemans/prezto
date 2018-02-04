@@ -38,10 +38,10 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'git' \
   'emacs' \
-  'python' \
-  'ruby' \
+#  'python' \
+#  'ruby' \
   'tmux' \
-  'gpg'
+#  'gpg'
 
 
 #

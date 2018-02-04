@@ -11,7 +11,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
 fi
 
 # add local path
-PATH=/usr/local/bin:$PATH:~/bin
+PATH=~/.local/bin:/usr/local/bin:$PATH:~/bin
 
 #
 # add node modules bin directory to path

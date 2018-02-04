@@ -1,3 +1,10 @@
+PROFILE_STARTUP=true
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+    PS4=$'%D{%M%S%.} %N:%i> '
+    exec 3>&2 2>$HOME/tmp/startlog.$$
+    setopt xtrace prompt_subst
+fi
 #
 # Executes commands at the start of an interactive session.
 #
@@ -11,12 +18,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-alias rgrep=grep -r
-alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
+if [[ "$OSTYPE" =~ "darwin.*" ]]
+then
+    alias rgrep=grep -r
+    alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 
-# show/hide hidden files in OSX file browsers
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+    # show/hide hidden files in OSX file browsers
+    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+fi
 
 export EDITOR=~/bin/ec
 export VISUAL=$EDITOR
