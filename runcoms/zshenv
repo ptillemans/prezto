@@ -124,3 +124,9 @@ if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   # Load RVM into a shell session *as a function*
   source "$HOME/.rvm/scripts/rvm"
 fi
+
+# Oracle support
+# this is platform dependent
+if [ "$(uname)" = "Linux" ]; then
+  export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_2:$LD_LIBRARY_PATH
+fi
