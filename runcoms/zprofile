@@ -63,12 +63,13 @@ then
 fi
 
 # google cloud support
-if [ -d ~pti/tools/google-cloud-sdk ]
+for GSDK in ~pti/tools/google-cloud-sdk /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+if [ -d $GSDK ]
 then
-   source ~/tools/google-cloud-sdk/completion.zsh.inc
-   source ~/tools/google-cloud-sdk/path.zsh.inc
+   source $GSDK/completion.zsh.inc
+   source $GSDK/path.zsh.inc
 fi
 
 
-# add local path 
+# add local path
 export PATH="$HOME/.local/bin":$PATH
