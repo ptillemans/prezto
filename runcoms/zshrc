@@ -10,6 +10,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+
 # Customize to your needs...
 if [[ "$OSTYPE" =~ "darwin.*" ]]
 then
@@ -45,3 +46,12 @@ export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 alias runhaskell='stack runhaskell'
 alias ghc='stack exec ghc --'
 alias ghci='stack exec ghci --'
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# enable virtualenvwrapper
+source virtualenvwrapper_lazy.sh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/pti/.sdkman"
+[[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
