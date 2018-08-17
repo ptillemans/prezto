@@ -10,6 +10,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+
 # Customize to your needs...
 if [[ "$OSTYPE" =~ "darwin.*" ]]
 then
@@ -45,3 +46,8 @@ export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 alias runhaskell='stack runhaskell'
 alias ghc='stack exec ghc --'
 alias ghci='stack exec ghci --'
+
+# add exercism completion to zsh
+if [ -f ~/bin/shell/exercism_completion.zsh ]; then
+  echo added exercism completion
+fi

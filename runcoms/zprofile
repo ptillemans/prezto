@@ -28,6 +28,9 @@ export PAGER='less'
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
+if [[ -z "$LC_ALL" ]]; then
+  export LC_ALL=$LANG
+fi
 
 #
 # Paths
@@ -43,8 +46,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  /usr/local/{bin,sbin}
   $path
+  /usr/local/{bin,sbin}
 )
 
 #
@@ -73,3 +76,5 @@ fi
 
 # add local path
 export PATH="$HOME/.local/bin":$PATH
+
+export PATH="$HOME/.cargo/bin:$PATH"
