@@ -10,8 +10,11 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
+# do not allow system rc files to clobber the configuration
+setopt no_global_rcs
+
 # add local path
-PATH=~/.local/bin:/usr/local/bin:$PATH:~/bin
+export PATH=~/.local/bin:/usr/local/bin:$PATH:~/bin
 
 #
 # add node modules bin directory to path
@@ -26,43 +29,20 @@ function node-init {
   fi
 }
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-function sdkman-init {
-  if (echo $PATH | grep './node_modules/.bin')
-  then
-    echo "Path already has ./node_modules/.bin added"
-  else
-    export SDKMAN_DIR="$HOME/.sdkman"
-    [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-  fi
-}
-
-# set and show java version in shell
-function jhome {
-  export JAVA_HOME=`/usr/libexec/java_home $@`
-  echo "JAVA_HOME:" $JAVA_HOME
-  echo "java -version:"
-  java -version
-}
-
-# golang support
-export GOPATH=~/playpen/go
-export PATH=$PATH:$GOPATH/bin:/usr/local/opt/go/libexec/bin
-
-# perl5 build
-export PERL_MB_OPT="--install_base \"$HOME/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
-
 # groovy support
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
-# octave
+# octave, actually gnuplot
 export GNUTERM="qt"
-export DYLD_LIBRARY_PATH=$HOME/Tools/oracle
-export ORACLE_HOME=$DYLD_LIBRARY_PATH
-export OCI_HOME=$DYLD_LIBRARY_PATH
-export OCI_LIB_DIR=$DYLD_LIBRARY_PATH
-export OCI_INC_DIR=$DYLD_LIBRARY_PATH/sdk/include
+
+# Oracle support
+if [ -d $HOME/Tools/oracle ]; then
+  export DYLD_LIBRARY_PATH=$HOME/Tools/oracle
+  export ORACLE_HOME=$DYLD_LIBRARY_PATH
+  export OCI_HOME=$DYLD_LIBRARY_PATH
+  export OCI_LIB_DIR=$DYLD_LIBRARY_PATH
+  export OCI_INC_DIR=$DYLD_LIBRARY_PATH/sdk/include
+fi
 
 # java support
 # for Java <8 : max perm size tends to fill up, increase it
@@ -76,16 +56,14 @@ then
 fi
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-export KAGGLE_BOSCH_DATA_ROOT=~/Dropbox/kaggle
+if [ -d "/usr/local/heroku/bin" ]; then
+  export PATH="/usr/local/heroku/bin:$PATH"
+fi
 
 ### Rust support
 if [ -f "${HOME}/.cargo/env" ]; then
     . ${HOME}/.cargo/env
 fi
-
-# added by Anaconda3 installer
-export PATH="/usr/local/anaconda3/bin:$PATH"
 
 # private environment variables not checked in
 if [ -f ~/.private.zsh ]
@@ -93,26 +71,29 @@ then
     source ~/.private.zsh
 fi
 
+# Python support with pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+if (echo $PATH | grep ".pyenv/shims" 2>&1 >/dev/null); then
+  # echo "Pyenv shims added"
+else
+  # echo "forcing pyenv shims."
+  export PATH=$HOME/.pyenv/shims:$PATH
+fi
+export PIPENV_PYTHON="$(pyenv which python)"
 
 ### Tensorflow support
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-
-### python support for the python layer in prezto
-export PROJECT_HOME="$HOME/Projects"
-export VIRTUALENVWRAPPER_PYTHON=`which python3.6`
-export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=''
+if [ -d "/usr/local/cuda-9.0" ]; then
+  export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+  export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+fi
 
 ### gtags support
 export GTAGSLABEL=pygments
 
 ### Haskell support
 export PATH=$PATH:~/Library/Haskell/bin
-
-# Npm and Yarn support
-export PATH=$PATH:~/.npm-packages/bin
-export PATH="$HOME/.yarn/bin:$PATH"
 
 # OpenSSL support on OSX
 if [ "$(uname)" = "Darwin" ]; then
@@ -124,9 +105,21 @@ if [ -s "$HOME/.rvm/scripts/rvm" ]; then
   # Load RVM into a shell session *as a function*
   source "$HOME/.rvm/scripts/rvm"
 fi
-
+if [ -d "$HOME/.rbenv" ]; then
+  # Load rbenv settings
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
 # Oracle support
 # this is platform dependent
 if [ "$(uname)" = "Linux" ]; then
   export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_2:$LD_LIBRARY_PATH
 fi
+
+if [ -d "/usr/local/Cellar/sonar-runner/2.7/libexec" ]; then
+    SONAR_RUNNER_HOME=/usr/local/Cellar/sonar-runner/2.7/libexec
+    export SONAR_RUNNER_HOME
+fi
+
+# clean up path
+typeset -aU path
