@@ -84,9 +84,9 @@ else
   # echo "forcing pyenv shims."
   export PATH=$HOME/.pyenv/shims:$PATH
 fi
-export PIPENV_PYTHON="$(pyenv which python)"
 
 ### Tensorflow support
+export PIPENV_PYTHON="$(pyenv which python)"
 if [ -d "/usr/local/cuda-9.0" ]; then
   export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
   export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
