@@ -39,8 +39,8 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'emacs' \
   'python' \
-#  'ruby' \
-#  'tmux' \ #  'gpg'
+  'syntax-highlighting' \
+  'history-substring-search' \
 
 
 #
