@@ -13,18 +13,8 @@ fi
 # do not allow system rc files to clobber the configuration
 setopt no_global_rcs
 
-#
-# add node modules bin directory to path
-#
-function node-init {
-  if (echo $PATH | grep './node_modules/.bin')
-  then
-    echo "Path already has ./node_modules/.bin added"
-  else
-    export PATH=./node_modules/.bin:$PATH
-    echo "The folder ./node_modules/.bin was added in front of the path."
-  fi
-}
+# Report CPU usage for commands running longer than 10 seconds
+REPORTTIME=10
 
 # groovy support
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
@@ -45,36 +35,29 @@ if [ "$(uname)" = "Linux" ]; then
 fi
 
 
+# Java support
 if [ -x /usr/libexec/java_home ]
 then
-    export JAVA_HOME=`/usr/libexec/java_home`
-fi
-
-### Added by the Heroku Toolbelt
-if [ -d "/usr/local/heroku/bin" ]; then
-  export PATH="/usr/local/heroku/bin:$PATH"
-fi
-
-### Rust support
-if [ -f "${HOME}/.cargo/env" ]; then
-    . ${HOME}/.cargo/env
+  export JAVA_HOME=`/usr/libexec/java_home`
 fi
 
 # private environment variables not checked in
 if [ -f ~/.private.zsh ]
 then
-    source ~/.private.zsh
+  source ~/.private.zsh
 fi
 
-# Python support with pyenv
 
-if [ -d ${HOME}/.pyenv ]; then
-   export PYENV_ROOT="$HOME/.pyenv"
-   eval "$($PYENV_ROOT/bin/pyenv init -)"
-fi
+#
+# GPG agent
+#
+# start gpg-agent and generate file with socket connection info
+#
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+
 
 ### Tensorflow support
-export PIPENV_PYTHON="$(pyenv which python)"
 if [ -d "/usr/local/cuda-9.0" ]; then
   export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
   export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
@@ -83,27 +66,14 @@ fi
 ### gtags support
 export GTAGSLABEL=pygments
 
-### Haskell support on osx
-if [ -d "~/Library/Haskell/bin" ]; then
-  export PATH=$PATH:~/Library/Haskell/bin
-fi
-
 # OpenSSL support on OSX
 if [ "$(uname)" = "Darwin" ]; then
   export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 fi
 
-# rbenv support
-if [ -d "$HOME/.rbenv" ]; then
-  # Load rbenv settings
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
 
+# Sonarqube support
 if [ -d "/usr/local/Cellar/sonar-runner/2.7/libexec" ]; then
-    SONAR_RUNNER_HOME=/usr/local/Cellar/sonar-runner/2.7/libexec
-    export SONAR_RUNNER_HOME
+  SONAR_RUNNER_HOME=/usr/local/Cellar/sonar-runner/2.7/libexec
+  export SONAR_RUNNER_HOME
 fi
-
-# clean up path
-typeset -aU path
