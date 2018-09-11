@@ -1,4 +1,4 @@
-#
+# -*- encoding=utf-8 -*-
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -92,6 +92,7 @@ if [ -f ~/bin/shell/exercism_completion.zsh ]; then
   source ~/bin/shell/exercism_completion.zsh
 fi
 
+source ~/.zprezto/runcoms/powerlevel9k.zsh
 
 # clean up path
 typeset -aU path
