@@ -117,7 +117,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 #
 
 # load powerlevel9k config before activating theme
-source ./powerlevel9k.zsh
+source ~/.zprezto/runcoms/powerlevel9k.zsh
 
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
