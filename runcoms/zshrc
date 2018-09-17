@@ -1,4 +1,4 @@
-#
+# -*- encoding=utf-8 -*-
 # Executes commands at the start of an interactive session.
 #
 # Authors:
@@ -12,35 +12,75 @@ fi
 
 
 # Customize to your needs...
+#
+# PTI: this is the place to add aliases, functions and other
+# useful things for interactive work on the command line.
+#
+
 if [[ "$OSTYPE" =~ "darwin.*" ]]
 then
-    alias rgrep=grep -r
-    alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
+  alias rgrep=grep -r
+  alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 
-    # show/hide hidden files in OSX file browsers
-    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+  # show/hide hidden files in OSX file browsers
+  alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+  alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 fi
 
-export EDITOR=~/bin/ec
-export VISUAL=$EDITOR
-
-# Report CPU usage for commands running longer than 10 seconds
-REPORTTIME=10
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
 
 # map gpg2 on regular gpg
 alias gpg=gpg2
 
-#
-# GPG agent
-#
-# start gpg-agent and generate file with socket connection info
-#
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
 
+#
+# add node modules bin directory to path
+#
+function node-init {
+  if (echo $PATH | grep './node_modules/.bin')
+  then
+    echo "Path already has ./node_modules/.bin added"
+  else
+    export PATH=./node_modules/.bin:$PATH
+    echo "The folder ./node_modules/.bin was added in front of the path."
+  fi
+}
+
+
+# Python support with pyenv
+if [ -d ${HOME}/.pyenv ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  eval "$($PYENV_ROOT/bin/pyenv init -)"
+fi
+
+
+# rbenv support
+if [ -d "$HOME/.rbenv" ]; then
+  # Load rbenv settings
+  if [ -d "$HOME/.rbenv/bin" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+  fi
+  eval "$(rbenv init -)"
+fi
+
+
+### Added by the Heroku Toolbelt
+if [ -d "/usr/local/heroku/bin" ]; then
+  export PATH="/usr/local/heroku/bin:$PATH"
+fi
+
+### Rust support
+if [ -f "${HOME}/.cargo/env" ]; then
+  . ${HOME}/.cargo/env
+fi
+
+
+### Haskell support on osx
+if [ -d "~/Library/Haskell/bin" ]; then
+  export PATH=$PATH:~/Library/Haskell/bin
+fi
 
 # Haskell/Stack aliases
 alias runhaskell='stack runhaskell'
@@ -49,5 +89,24 @@ alias ghci='stack exec ghci --'
 
 # add exercism completion to zsh
 if [ -f ~/bin/shell/exercism_completion.zsh ]; then
-  echo added exercism completion
+  source ~/bin/shell/exercism_completion.zsh
 fi
+
+# clean up path
+typeset -aU path
+
+# change cursor shape
+echo -ne "\e[5 q" # start in insert mode
+zle-keymap-select () {
+  if [[ $TERM =~ .*-256color ]]; then
+    if [ $KEYMAP = vicmd ]; then
+      # the command mode for vi
+      echo -ne "\e[2 q"
+    else
+      # the insert mode for vi
+      echo -ne "\e[5 q"
+    fi
+  fi
+  zle reset-prompt
+  zle -R
+}
