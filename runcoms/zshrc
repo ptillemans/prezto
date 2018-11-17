@@ -72,8 +72,8 @@ if [ -d "/usr/local/heroku/bin" ]; then
 fi
 
 ### Rust support
-if [ -f "${HOME}/.cargo/env" ]; then
-  . ${HOME}/.cargo/env
+if [ -d "${HOME}/.cargo/bin" ]; then
+  export PATH="${HOME}/.cargo/bin:$PATH"
 fi
 
 
