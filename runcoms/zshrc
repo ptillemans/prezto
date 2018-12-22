@@ -48,6 +48,11 @@ function node-init {
   fi
 }
 
+if [ -d ${HOME}/.npm-packages ]
+then
+    export PATH=${HOME}/.npm-packages/bin:$PATH
+fi
+
 
 # Python support with pyenv
 if [ -d ${HOME}/.pyenv ]; then
