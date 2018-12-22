@@ -52,7 +52,14 @@ function node-init {
 # Python support with pyenv
 if [ -d ${HOME}/.pyenv ]; then
   export PYENV_ROOT="$HOME/.pyenv"
-  eval "$($PYENV_ROOT/bin/pyenv init -)"
+  if [ -f /usr/local/bin/pyenv ] 
+  then
+    # support homebrew location for pyenv
+    eval "$(/usr/local/bin/pyenv init -)"
+  else
+    # support source install location
+    eval "$($PYENV_ROOT/bin/pyenv init -)"
+  fi
 fi
 
 
