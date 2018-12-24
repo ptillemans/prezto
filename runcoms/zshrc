@@ -47,6 +47,9 @@ function node-init {
     echo "The folder ./node_modules/.bin was added in front of the path."
   fi
 }
+if [[ -d "$HOME/.npm-packages" ]]; then
+  export PATH="$HOME/.npm-packages/bin":$PATH
+fi
 
 
 # Python support with pyenv
@@ -65,6 +68,11 @@ if [ -d "$HOME/.rbenv" ]; then
   eval "$(rbenv init -)"
 fi
 
+# jEnv support
+if [ -d "$HOME/.jenv" ]; then
+    export PATH="$PATH:$HOME/.jenv/bin"
+    eval "$(jenv init -)"
+fi
 
 ### Added by the Heroku Toolbelt
 if [ -d "/usr/local/heroku/bin" ]; then
