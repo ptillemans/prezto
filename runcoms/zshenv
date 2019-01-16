@@ -77,3 +77,9 @@ if [ -d "/usr/local/Cellar/sonar-runner/2.7/libexec" ]; then
   SONAR_RUNNER_HOME=/usr/local/Cellar/sonar-runner/2.7/libexec
   export SONAR_RUNNER_HOME
 fi
+
+# github extension for git
+if [ -x `where hub` ]; then
+   eval $(hub alias -s)
+fi
+
