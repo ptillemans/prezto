@@ -70,6 +70,10 @@ if [ -d ${HOME}/.pyenv ]; then
   fi
 fi
 
+# nix support
+if [ -d ${HOME}/.nix-profile/etc ]; then
+    source ${HOME}/.nix-profile/etc/profile.d/nix.sh
+fi
 
 # rbenv support
 if [ -d "$HOME/.rbenv" ]; then
