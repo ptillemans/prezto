@@ -79,7 +79,7 @@ if [ -d "/usr/local/Cellar/sonar-runner/2.7/libexec" ]; then
 fi
 
 # github extension for git
-if [ -x `where hub` ]; then
+if [ -x "`where hub`" ]; then
    eval $(hub alias -s)
 fi
 
