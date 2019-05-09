@@ -77,3 +77,7 @@ if [ -d "/usr/local/Cellar/sonar-runner/2.7/libexec" ]; then
   SONAR_RUNNER_HOME=/usr/local/Cellar/sonar-runner/2.7/libexec
   export SONAR_RUNNER_HOME
 fi
+
+if [[ "$(uname -v)" == *"Microsoft"* ]]; then
+  export DOCKER_HOST=tcp://localhost:2375
+fi
