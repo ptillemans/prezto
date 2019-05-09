@@ -81,3 +81,8 @@ fi
 if [[ "$(uname -v)" == *"Microsoft"* ]]; then
   export DOCKER_HOST=tcp://localhost:2375
 fi
+
+# github extension for git
+if [ -x "`where hub`" ]; then
+   eval $(hub alias -s)
+fi
