@@ -134,3 +134,7 @@ zle-keymap-select () {
   zle reset-prompt
   zle -R
 }
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/pti/.sdkman"
+[[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
