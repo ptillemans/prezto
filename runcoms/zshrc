@@ -47,77 +47,8 @@ function node-init {
     echo "The folder ./node_modules/.bin was added in front of the path."
   fi
 }
-if [[ -d "$HOME/.npm-packages" ]]; then
-  export PATH="$HOME/.npm-packages/bin":$PATH
-fi
-
-if [ -d ${HOME}/.npm-packages ]
-then
-    export PATH=${HOME}/.npm-packages/bin:$PATH
-fi
 
 
-# Python support with pyenv
-if [ -d ${HOME}/.pyenv ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  if [ -f /usr/local/bin/pyenv ] 
-  then
-    # support homebrew location for pyenv
-    eval "$(/usr/local/bin/pyenv init -)"
-  else
-    # support source install location
-    eval "$($PYENV_ROOT/bin/pyenv init -)"
-  fi
-fi
-
-# nix support
-if [ -d ${HOME}/.nix-profile/etc ]; then
-    source ${HOME}/.nix-profile/etc/profile.d/nix.sh
-fi
-
-# rbenv support
-if [ -d "$HOME/.rbenv" ]; then
-  # Load rbenv settings
-  if [ -d "$HOME/.rbenv/bin" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-  fi
-  eval "$(rbenv init -)"
-fi
-
-# jEnv support
-if [ -d "$HOME/.jenv" ]; then
-    export PATH="$PATH:$HOME/.jenv/bin"
-    eval "$(jenv init -)"
-fi
-
-### Added by the Heroku Toolbelt
-if [ -d "/usr/local/heroku/bin" ]; then
-  export PATH="/usr/local/heroku/bin:$PATH"
-fi
-
-### Rust support
-if [ -d "${HOME}/.cargo/bin" ]; then
-  export PATH="${HOME}/.cargo/bin:$PATH"
-fi
-
-
-### Haskell support on osx
-if [ -d "~/Library/Haskell/bin" ]; then
-  export PATH=$PATH:~/Library/Haskell/bin
-fi
-
-# Haskell/Stack aliases
-alias runhaskell='stack runhaskell'
-alias ghc='stack exec ghc --'
-alias ghci='stack exec ghci --'
-
-# add exercism completion to zsh
-if [ -f ~/bin/shell/exercism_completion.zsh ]; then
-  source ~/bin/shell/exercism_completion.zsh
-fi
-
-# clean up path
-typeset -aU path
 
 # change cursor shape
 echo -ne "\e[5 q" # start in insert mode
@@ -134,6 +65,21 @@ zle-keymap-select () {
   zle reset-prompt
   zle -R
 }
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/pti/.pyenv/versions/anaconda3-2019.03/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/pti/.pyenv/versions/anaconda3-2019.03/etc/profile.d/conda.sh" ]; then
+        . "/home/pti/.pyenv/versions/anaconda3-2019.03/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/pti/.pyenv/versions/anaconda3-2019.03/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/pti/.sdkman"
