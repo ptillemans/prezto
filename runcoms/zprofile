@@ -139,10 +139,5 @@ alias runhaskell='stack runhaskell'
 alias ghc='stack exec ghc --'
 alias ghci='stack exec ghci --'
 
-# add exercism completion to zsh
-if [ -f ~/bin/shell/exercism_completion.zsh ]; then
-  source ~/bin/shell/exercism_completion.zsh
-fi
-
 # clean up path
 typeset -aU path

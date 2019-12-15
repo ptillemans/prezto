@@ -66,3 +66,9 @@ fi
 if [ -x "`where hub`" ]; then
    eval $(hub alias -s)
 fi
+
+# add exercism completion to zsh
+if [ -f ~/bin/shell/exercism_completion.zsh ]; then
+  source ~/bin/shell/exercism_completion.zsh
+fi
+
