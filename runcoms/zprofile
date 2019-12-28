@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='emacsclient -c -a'
-export VISUAL='emacsclient -c -a'
+export EDITOR=/usr/bin/vi
+export VISUAL=$EDITOR
 export PAGER='less'
 
 #
@@ -140,4 +140,6 @@ alias ghc='stack exec ghc --'
 alias ghci='stack exec ghci --'
 
 # clean up path
+vscode_path=`echo $PATH | tr ':' '\n' | grep 'VS Code'`
+PATH="`echo $PATH | tr ':' '\n' | grep -v '/mnt/c/' | tr '\n' ':'`:$vscode_path"
 typeset -aU path
