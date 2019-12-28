@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='emacsclient -c -a'
-export VISUAL='emacsclient -c -a'
+export EDITOR=/usr/bin/vi
+export VISUAL=$EDITOR
 export PAGER='less'
 
 #
@@ -138,11 +138,6 @@ fi
 alias runhaskell='stack runhaskell'
 alias ghc='stack exec ghc --'
 alias ghci='stack exec ghci --'
-
-# add exercism completion to zsh
-if [ -f ~/bin/shell/exercism_completion.zsh ]; then
-  source ~/bin/shell/exercism_completion.zsh
-fi
 
 # clean up path
 vscode_path=`echo $PATH | tr ':' '\n' | grep 'VS Code'`
