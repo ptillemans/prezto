@@ -81,6 +81,15 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Add Go support to path
+if [[ "$GOROOT" != "" ]]; then
+    export PATH="$GOROOT/bin:$PATH"
+fi
+if [[ "$GOPATH" != "" ]]; then
+    export PATH="$GOPATH/bin:$PATH"
+fi
+
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/pti/.sdkman"
 [[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"

@@ -72,3 +72,17 @@ if [ -f ~/bin/shell/exercism_completion.zsh ]; then
   source ~/bin/shell/exercism_completion.zsh
 fi
 
+
+# set DISPLY variablw in WSL
+if [[ `uname -a` == *"microsoft"* ]]; then
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+fi
+
+# GoLang support
+if [ -d /usr/local/go ]; then
+   export GOROOT=/usr/local/go
+fi
+if [ -d ~/GoPath ]; then
+    export GOPATH=$HOME/GoPath
+fi
+
