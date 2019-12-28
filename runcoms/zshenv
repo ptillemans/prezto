@@ -66,3 +66,8 @@ fi
 if [ -x "`where hub`" ]; then
    eval $(hub alias -s)
 fi
+
+if [[ `uname -a` == *microsoft* ]]; then
+   export DISPLAY=`cat /etc/resolv.conf | ag nameserver | cut -d ' ' -f2`:0
+fi
+

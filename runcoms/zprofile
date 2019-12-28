@@ -145,4 +145,6 @@ if [ -f ~/bin/shell/exercism_completion.zsh ]; then
 fi
 
 # clean up path
+vscode_path=`echo $PATH | tr ':' '\n' | grep 'VS Code'`
+PATH="`echo $PATH | tr ':' '\n' | grep -v '/mnt/c/' | tr '\n' ':'`:$vscode_path"
 typeset -aU path
