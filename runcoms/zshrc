@@ -89,6 +89,17 @@ if [[ "$GOPATH" != "" ]]; then
     export PATH="$GOPATH/bin:$PATH"
 fi
 
+# start emacs daemon if not yet running
+if (ps ax | grep '\d emacs --daeman')
+then
+  echo 'emacs daemon already running'
+else
+  emacs --daemon
+fi
+export ALTERNATE_EDITOR=""
+alias e='emacsclient -tty'
+alias ec='emacsclient -c'
+
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/pti/.sdkman"
