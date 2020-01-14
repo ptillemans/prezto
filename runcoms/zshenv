@@ -68,7 +68,9 @@ if [ -x "`where hub`" ]; then
 fi
 
 if [[ `uname -a` == *microsoft* ]]; then
-   export DISPLAY=`cat /etc/resolv.conf | ag nameserver | cut -d ' ' -f2`:0
+   export HOST_IP=`cat /etc/resolv.conf | ag nameserver | cut -d ' ' -f2`
+   export DISPLAY=$HOST_IP:0
+   # export DOCKER_HOST=tcp://$HOST_IP:2375
 fi
 
 # GoLang support
