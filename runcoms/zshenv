@@ -79,3 +79,4 @@ if [ -d ~/GoPath ]; then
     export GOPATH=$HOME/GoPath
 fi
 
+export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
