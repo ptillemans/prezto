@@ -90,7 +90,7 @@ if [[ "$GOPATH" != "" ]]; then
 fi
 
 # start emacs daemon if not yet running
-if (ps ax | grep 'emacs' | grep -v grep)
+if (ps axo comm | grep 'emacs' | grep -v grep >/dev/null)
 then
   echo 'emacs daemon already running'
 else
