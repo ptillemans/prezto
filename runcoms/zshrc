@@ -97,8 +97,6 @@ else
   emacs --daemon
 fi
 export ALTERNATE_EDITOR=""
-alias e='emacsclient -tty'
-alias ec='emacsclient -c'
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

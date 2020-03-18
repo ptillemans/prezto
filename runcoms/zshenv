@@ -82,3 +82,9 @@ if [ -d ~/GoPath ]; then
 fi
 
 export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+
+# direnv local environment
+if [ -x "`where direnv`" ]; then
+    eval "$(direnv hook zsh)"
+fi
+
