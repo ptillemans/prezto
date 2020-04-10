@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR=/usr/bin/vi
-export VISUAL=$EDITOR
+export EDITOR='emacsclient -c -a ""'
+export VISUAL='emacsclient -c -a ""'
 export PAGER='less'
 
 #
