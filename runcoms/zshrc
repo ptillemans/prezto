@@ -49,7 +49,6 @@ function node-init {
 }
 
 
-
 # change cursor shape
 echo -ne "\e[5 q" # start in insert mode
 zle-keymap-select () {
@@ -90,8 +89,7 @@ if [[ "$GOPATH" != "" ]]; then
 fi
 
 # start emacs daemon if not yet running
-if (ps ax | grep 'emacs' | grep -v grep)
-then
+if (ps ax | grep 'emacs' | grep -v grep); then
   echo 'emacs daemon already running'
 else
   emacs --daemon
@@ -100,6 +98,23 @@ export ALTERNATE_EDITOR=""
 alias e='emacsclient -tty'
 alias ec='emacsclient -c'
 
+# support for jfrog tool
+if [ -e "$HOME/.jfrog/jfrog_zsh_completion" ]; then
+   autoload -Uz compinit
+   compinit
+   source /home/pti/.jfrog/jfrog_zsh_completion
+fi
+
+# NPM support
+if [ -d "$HOME/.npm-packages" ]; then
+    NPM_PACKAGES="${HOME}/.npm-packages"
+
+    export PATH="$PATH:$NPM_PACKAGES/bin"
+
+    # Preserve MANPATH if you already defined it somewhere in your config.
+    # # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+    export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/pti/.sdkman"
