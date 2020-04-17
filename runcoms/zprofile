@@ -78,7 +78,7 @@ fi
 # Python support with pyenv
 if [ -d ${HOME}/.pyenv ]; then
   export PYENV_ROOT="$HOME/.pyenv"
-  if [ -x `which pyenv` ]
+  if [ -x /usr/local/bin/pyenv -o -x /usr/bin/pyenv ]
   then
     # support homebrew location for pyenv
     eval "$(pyenv init -)"
@@ -146,6 +146,4 @@ typeset -aU path
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# add default keys to ssh-agent
-ssh-add
 
