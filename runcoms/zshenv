@@ -68,7 +68,7 @@ if [ -x "`where hub`" ]; then
 fi
 
 if [[ `uname -a` == *microsoft* ]]; then
-   export HOST_IP=`cat /etc/resolv.conf | ag nameserver | cut -d ' ' -f2`
+   export HOST_IP=`cat /etc/resolv.conf | rg nameserver | cut -d ' ' -f2`
    export DISPLAY=$HOST_IP:0
    # export DOCKER_HOST=tcp://$HOST_IP:2375
 fi
@@ -82,3 +82,9 @@ if [ -d ~/GoPath ]; then
 fi
 
 export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+
+# direnv local environment
+if [ -x "`where direnv`" ]; then
+    eval "$(direnv hook zsh)"
+fi
+
