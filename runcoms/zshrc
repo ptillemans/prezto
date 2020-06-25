@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # -*- encoding=utf-8 -*-
 # Executes commands at the start of an interactive session.
 #
@@ -35,20 +42,6 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 alias gpg=gpg2
 
 
-#
-# add node modules bin directory to path
-#
-function node-init {
-  if (echo $PATH | grep './node_modules/.bin')
-  then
-    echo "Path already has ./node_modules/.bin added"
-  else
-    export PATH=./node_modules/.bin:$PATH
-    echo "The folder ./node_modules/.bin was added in front of the path."
-  fi
-}
-
-
 # change cursor shape
 echo -ne "\e[5 q" # start in insert mode
 zle-keymap-select () {
@@ -65,33 +58,9 @@ zle-keymap-select () {
   zle -R
 }
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/pti/.pyenv/versions/anaconda3-2019.03/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/pti/.pyenv/versions/anaconda3-2019.03/etc/profile.d/conda.sh" ]; then
-        . "/home/pti/.pyenv/versions/anaconda3-2019.03/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/pti/.pyenv/versions/anaconda3-2019.03/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# Add Go support to path
-if [[ "$GOROOT" != "" ]]; then
-    export PATH="$GOROOT/bin:$PATH"
-fi
-if [[ "$GOPATH" != "" ]]; then
-    export PATH="$GOPATH/bin:$PATH"
-fi
-
 # start emacs daemon if not yet running
 if (ps ax | grep -e '[[:digit:]] emacs --daemon' >/dev/null)
 then
-  echo 'emacs daemon already running'
 else
   emacs --daemon
 fi
@@ -104,20 +73,8 @@ if [ -e "$HOME/.jfrog/jfrog_zsh_completion" ]; then
    source /home/pti/.jfrog/jfrog_zsh_completion
 fi
 
-# NPM support
-if [ -d "$HOME/.npm-packages" ]; then
-    NPM_PACKAGES="${HOME}/.npm-packages"
-
-    export PATH="$PATH:$NPM_PACKAGES/bin"
-
-    # Preserve MANPATH if you already defined it somewhere in your config.
-    # # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
-    export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
-fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/pti/.sdkman"
-[[ -s "/Users/pti/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/pti/.sdkman/bin/sdkman-init.sh"
-
 # opam configuration
 test -r /home/pti/.opam/opam-init/init.zsh && . /home/pti/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
