@@ -32,4 +32,8 @@
 [submodule "modules/prompt/external/powerlevel10k"]
 	path = modules/prompt/external/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
-	shallow = true
+    shallow = true
+[submodule "contrib"]
+    path = contrib
+    pathurl = https://github.com/belak/prezto-contrib
+
