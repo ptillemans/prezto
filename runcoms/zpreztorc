@@ -46,7 +46,7 @@ zstyle ':prezto:load' pmodule \
   'python' \
   'syntax-highlighting' \
   'history-substring-search' \
-  'contrib-kubernetes'
+  'kubernetes'
 
 #
 # Autosuggestions
