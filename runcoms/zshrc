@@ -62,7 +62,7 @@ zle-keymap-select () {
 if (ps ax | grep -e '[[:digit:]] emacs --daemon' >/dev/null)
 then
 else
-  emacs --daemon
+  emacs --daemon 2>&1 1>/dev/null
 fi
 export ALTERNATE_EDITOR=""
 

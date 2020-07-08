@@ -108,7 +108,6 @@ alias ghci='stack exec ghci --'
 # clean up path
 vscode_path=`echo $PATH | tr ':' '\n' | grep 'VS Code'`
 PATH="`echo $PATH | tr ':' '\n' | grep -v '/mnt/c/' | tr '\n' ':'`:$vscode_path"
-typeset -aU path
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
@@ -116,17 +115,21 @@ export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export GNUTERM="qt"
 
 # Oracle support
-if [ -d $HOME/Tools/oracle ]; then
-  export DYLD_LIBRARY_PATH=$HOME/Tools/oracle
-  export ORACLE_HOME=$DYLD_LIBRARY_PATH
-  export OCI_HOME=$DYLD_LIBRARY_PATH
-  export OCI_LIB_DIR=$DYLD_LIBRARY_PATH
+if [ -d /usr/lib/oracle/12.1/client64 ]; then
+  export OCI_HOME="/usr/lib/oracle/12.1/client64"
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OCI_HOME/lib
+  export OCI_LIB_DIR=$OCI_HOME/lib
+  export OCI_INC_DIR=/usr/include/oracle/12.1/client64
+  path+=($OCI_HOME/bin)
+  export NLS_LANG="American_America.UTF8"
+elif [ -d $HOME/Tools/oracle ]; then
+  export OCI_HOME=$HOME/Tools/oracle
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+  export OCI_LIB_DIR=$OCI_HOME
   export OCI_INC_DIR=$DYLD_LIBRARY_PATH/sdk/include
+  path+=($OCI_HOME)
+  export NLS_LANG="American_America.UTF8"
 fi
-if [ "$(uname)" = "Linux" ]; then
-  export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_2:$LD_LIBRARY_PATH
-fi
-
 
 # Java support
 if [ -x /usr/libexec/java_home ]
@@ -185,3 +188,5 @@ export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
 if [ -x "`where direnv`" ]; then
     eval "$(direnv hook zsh)"
 fi
+
+typeset -aU path
