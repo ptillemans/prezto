@@ -10,15 +10,15 @@
 #
 
 if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
+    export BROWSER='open'
 fi
 
 #
 # Editors
 #
 
-export EDITOR='emacsclient -c -a ""'
-export VISUAL='emacsclient -c -a ""'
+export EDITOR='emacsclient -c '
+export VISUAL='emacsclient -c '
 export PAGER='less'
 
 #
@@ -26,30 +26,11 @@ export PAGER='less'
 #
 
 if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
+    export LANG='en_US.UTF-8'
 fi
 if [[ -z "$LC_ALL" ]]; then
-  export LC_ALL=$LANG
+    export LC_ALL=$LANG
 fi
-
-#
-# Paths
-#
-
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-
-# Set the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
-
-# Set the list of directories that Zsh searches for programs.
-path=(
-  "$HOME/.local/bin"
-  /usr/local/{bin,sbin}
-  $path
-)
 
 #
 # Less
@@ -59,91 +40,3 @@ path=(
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 export LESS='-F -g -i -M -R -S -w -X -z-4'
-
-# google cloud support
-for GSDK in ~pti/Tools/google-cloud-sdk /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
-if [ -d $GSDK ]
-then
-   source $GSDK/completion.zsh.inc
-   source $GSDK/path.zsh.inc
-fi
-
-
-### Tensorflow support
-if [ -d "/usr/local/cuda/lib64" ]; then
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-  export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-fi
-
-# Python support with pyenv
-if [ -d ${HOME}/.pyenv ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  if [ -x /usr/local/bin/pyenv -o -x /usr/bin/pyenv ]
-  then
-    # support homebrew location for pyenv
-    eval "$(pyenv init -)"
-  else
-    # support source install location
-    eval "$($PYENV_ROOT/bin/pyenv init -)"
-  fi
-fi
-
-# nix support
-if [ -d ${HOME}/.nix-profile/etc ]; then
-    source ${HOME}/.nix-profile/etc/profile.d/nix.sh
-fi
-
-# rbenv support
-if [ -d "$HOME/.rbenv" ]; then
-  # Load rbenv settings
-  if [ -d "$HOME/.rbenv/bin" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-  fi
-  eval "$(rbenv init -)"
-fi
-
-# jEnv support
-if [ -d "$HOME/.jenv" ]; then
-    export PATH="$PATH:$HOME/.jenv/bin"
-    eval "$(jenv init -)"
-fi
-
-# node and npm support
-if [[ -d "$HOME/.npm-packages" ]]; then
-  export PATH="$HOME/.npm-packages/bin":$PATH
-fi
-
-if [ -d ${HOME}/.npm-packages ]
-then
-  export PATH=${HOME}/.npm-packages/bin:$PATH
-fi
-
-### Added by the Heroku Toolbelt
-if [ -d "/usr/local/heroku/bin" ]; then
-  export PATH="/usr/local/heroku/bin:$PATH"
-fi
-
-### Rust support
-if [ -d "${HOME}/.cargo/bin" ]; then
-  export PATH="${HOME}/.cargo/bin:$PATH"
-fi
-
-
-### Haskell support on osx
-if [ -d "~/Library/Haskell/bin" ]; then
-  export PATH=$PATH:~/Library/Haskell/bin
-fi
-
-# Haskell/Stack aliases
-alias runhaskell='stack runhaskell'
-alias ghc='stack exec ghc --'
-alias ghci='stack exec ghci --'
-
-# clean up path
-vscode_path=`echo $PATH | tr ':' '\n' | grep 'VS Code'`
-PATH="`echo $PATH | tr ':' '\n' | grep -v '/mnt/c/' | tr '\n' ':'`:$vscode_path"
-typeset -aU path
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-

@@ -11,24 +11,125 @@ setopt no_global_rcs
 # Report CPU usage for commands running longer than 10 seconds
 REPORTTIME=10
 
-# groovy support
+#
+# Paths
+#
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
+# Set the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  "$HOME/.local/bin"
+  /usr/local/{bin,sbin}
+  $path
+)
+
+# google cloud support
+for GSDK in ~pti/Tools/google-cloud-sdk /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+do
+    if [ -d $GSDK ]
+    then
+        source $GSDK/completion.zsh.inc
+        source $GSDK/path.zsh.inc
+    fi
+done
+
+### Tensorflow support
+if [ -d "/usr/local/cuda/lib64" ]; then
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+    path=('/usr/local/cuda/bin' $path)
+fi
+
+# Python support with pyenv
+if [ -d ${HOME}/.pyenv ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    if [ -x /usr/local/bin/pyenv -o -x /usr/bin/pyenv ]
+    then
+        # support homebrew location for pyenv
+        eval "$(pyenv init -)"
+    else
+        # support source install location
+        eval "$($PYENV_ROOT/bin/pyenv init -)"
+    fi
+fi
+
+# nix support
+if [ -d ${HOME}/.nix-profile/etc ]; then
+    source ${HOME}/.nix-profile/etc/profile.d/nix.sh
+fi
+
+# rbenv support
+if [ -d "$HOME/.rbenv" ]; then
+    # Load rbenv settings
+    if [ -d "$HOME/.rbenv/bin" ]; then
+        path=("$HOME/.rbenv/bin" $path)
+    fi
+    eval "$(rbenv init -)"
+fi
+
+# jEnv support
+if [ -d "$HOME/.jenv" ]; then
+    path+=("$HOME/.jenv/bin")
+    eval "$(jenv init -)"
+fi
+
+# node and npm support
+if [ -d "$HOME/.npm-packages" ]; then
+    path=("$HOME/.npm-packages/bin" $path)
+fi
+
+### Added by the Heroku Toolbelt
+if [ -d "/usr/local/heroku/bin" ]; then
+    path=("/usr/local/heroku/bin" $path)
+fi
+
+### Rust support
+if [ -d "${HOME}/.cargo/bin" ]; then
+    path=("${HOME}/.cargo/bin" $path)
+fi
+
+
+### Haskell support on osx
+if [ -d "~/Library/Haskell/bin" ]; then
+    path+=("${HOME}/Library/Haskell/bin")
+fi
+
+# Haskell/Stack aliases
+alias runhaskell='stack runhaskell'
+alias ghc='stack exec ghc --'
+alias ghci='stack exec ghci --'
+
+# clean up path
+vscode_path=`echo $PATH | tr ':' '\n' | grep 'VS Code'`
+PATH="`echo $PATH | tr ':' '\n' | grep -v '/mnt/c/' | tr '\n' ':'`:$vscode_path"
+
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
 # octave, actually gnuplot
 export GNUTERM="qt"
 
 # Oracle support
-if [ -d $HOME/Tools/oracle ]; then
-  export DYLD_LIBRARY_PATH=$HOME/Tools/oracle
-  export ORACLE_HOME=$DYLD_LIBRARY_PATH
-  export OCI_HOME=$DYLD_LIBRARY_PATH
-  export OCI_LIB_DIR=$DYLD_LIBRARY_PATH
+if [ -d /usr/lib/oracle/12.1/client64 ]; then
+  export OCI_HOME="/usr/lib/oracle/12.1/client64"
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OCI_HOME/lib
+  export OCI_LIB_DIR=$OCI_HOME/lib
+  export OCI_INC_DIR=/usr/include/oracle/12.1/client64
+  path+=($OCI_HOME/bin)
+  export NLS_LANG="American_America.UTF8"
+elif [ -d $HOME/Tools/oracle ]; then
+  export OCI_HOME=$HOME/Tools/oracle
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+  export OCI_LIB_DIR=$OCI_HOME
   export OCI_INC_DIR=$DYLD_LIBRARY_PATH/sdk/include
+  path+=($OCI_HOME)
+  export NLS_LANG="American_America.UTF8"
 fi
-if [ "$(uname)" = "Linux" ]; then
-  export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_2:$LD_LIBRARY_PATH
-fi
-
 
 # Java support
 if [ -x /usr/libexec/java_home ]
@@ -88,3 +189,4 @@ if [ -x "`where direnv`" ]; then
     eval "$(direnv hook zsh)"
 fi
 
+typeset -aU path
