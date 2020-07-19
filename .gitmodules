@@ -35,5 +35,5 @@
     shallow = true
 [submodule "contrib"]
     path = contrib
-    pathurl = https://github.com/belak/prezto-contrib
+    url = https://github.com/belak/prezto-contrib
 
