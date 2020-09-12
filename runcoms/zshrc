@@ -72,3 +72,8 @@ test -r /home/pti/.opam/opam-init/init.zsh && . /home/pti/.opam/opam-init/init.z
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+PATH=$(/usr/bin/printenv PATH | /usr/bin/perl -ne 'print join(":", grep { !/\/mnt\/[a-z]/ } split(/:/));')
+. ~/.nix-profile/etc/profile.d/nix.sh
+
+eval "$(direnv hook zsh)"

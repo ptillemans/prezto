@@ -190,3 +190,4 @@ if [ -x "`where direnv`" ]; then
 fi
 
 typeset -aU path
+if [ -e /home/pti/.nix-profile/etc/profile.d/nix.sh ]; then . /home/pti/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
